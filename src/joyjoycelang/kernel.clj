@@ -1,10 +1,5 @@
 (ns joyjoycelang.kernel)
 
-(defn split-vec [v, i]
-  (let [split-inx (if (pos? i), i, (+ (count v) i))]
-    [(subvec v 0 split-inx)
-     (subvec v split-inx)]))
-
 (declare run)
 
 (comment
