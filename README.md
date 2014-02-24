@@ -1,7 +1,9 @@
 # joyjoycelang
 
 A little learning implementation of something kind of like Joy.
-[http://en.wikipedia.org/wiki/Joy_(programming_language)]
+
+http://en.wikipedia.org/wiki/Joy_(programming_language)
+http://tunes.org/~iepos/joy.html
 
 ## License
 
