@@ -7,16 +7,20 @@
 
 (declare run)
 
+(comment
+  (run [[[:b] :gimme-b] :def]))
+
 (def joyenv
   (atom
    {:dup (fn [stack] (conj stack (peek stack)))
     :def (fn def-op [stack]
-           (let [[stack', [val, name]] (split-vec stack -2)]
+           (let [stack' (pop stack)
+                 [val name] (peek stack)]
              (swap! joyenv
                     (fn [env]
                       (assoc env name
-                             (fn [stack]
-                               (run stack [val])))))
+                             (fn [stack'']
+                               (run stack'' val)))))
              stack'))}))
 
 (defn step-dispatch [stack, head]
