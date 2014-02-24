@@ -16,7 +16,7 @@
                     (fn [env]
                       (assoc env name
                              (fn [stack]
-                               (run (conj stack val))))))
+                               (run stack [val])))))
              stack'))}))
 
 (defn step-dispatch [stack, head]
