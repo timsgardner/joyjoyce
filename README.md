@@ -1,10 +1,7 @@
 # joyjoycelang
 
-A Clojure library designed to ... well, that part is up to you.
-
-## Usage
-
-FIXME
+A little learning implementation of something kind of like Joy.
+[http://en.wikipedia.org/wiki/Joy_(programming_language)]
 
 ## License
 
