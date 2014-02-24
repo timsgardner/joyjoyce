@@ -1,5 +1,10 @@
 (ns joyjoycelang.kernel)
 
+(defn split-vec [v, i]
+  (let [split-inx (if (pos? i), i, (+ (count v) i))]
+    [(subvec v 0 split-inx)
+     (subvec v split-inx)]))
+
 (declare run)
 
 (comment
@@ -7,7 +12,12 @@
 
 (def joyenv
   (atom
-   {:dup (fn [stack] (conj stack (peek stack)))
+   {:cake (fn cake [stack]
+            (let [[stack', [[b], [a]]] (split-vec stack -2)]
+              (conj stack', [[b] a], [a [b]])))
+    :k (fn k [stack]
+         (let [[stack', [[b], [a]] (split-vec stack -2)]]
+           (conj stack', a)))
     :def (fn def-op [stack]
            (let [stack' (pop stack)
                  [val name] (peek stack)]
