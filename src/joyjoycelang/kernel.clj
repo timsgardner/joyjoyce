@@ -19,11 +19,11 @@
 (def joyenv
   (atom
    {:cake (fn cake [stack]
-            (let [[stack', [[&_ :as bv], [&_ :as av]]] (split-vec stack -2)]
+            (let [[stack', [bv, av]] (split-vec stack -2)]
               ;; this is stupid because of destructuring crap. Means: [[b]a] [a[b]]
               (run stack', (remove-nil [(into [bv] av), (conj av bv)]))))
     :k (fn k [stack]
-         (let [[stack', [[&_], [&_ :as av]]] (split-vec stack -2)]
+         (let [[stack', [bv, av]] (split-vec stack -2)]
            (run stack', (remove-nil av))))
     :def (fn def-op [stack]
            (let [stack' (pop stack)
@@ -60,7 +60,7 @@
 
 (is (= (run [[:a] :zap]) []))
 
-(is (= (run [[:b] [:a] :dip]) [:a [:b]]))
+(is (= (run [[:b] [:a] :dip]) [:a [:b]]));; <-
 
 (is (= (run [[:b] [:a] :cons]) [[[:b] :a]]))
 
