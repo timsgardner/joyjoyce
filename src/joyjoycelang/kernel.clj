@@ -13,16 +13,14 @@
 
 (declare run)
 
-(comment
-  (run [[[:b] :gimme-b] :def]))
-
 (def joyenv
   (atom
-   {:cake (fn cake [stack]
-            (let [[stack', [bv, av]] (split-vec stack -2)]
-              ;; this is stupid because of destructuring crap. Means: [[b]a] [a[b]]
-              (run stack', (remove-nil [(into [bv] av), (conj av bv)]))))
-    :k (fn k [stack]
+   {:cake (fn cake [stack] ;[b a] -> [[b]a] [a[b]]
+            (let [[stack', [bv, av]] (split-vec stack -2)
+                  av (if (vector? av), av, [av])]
+              (run stack',
+                (remove-nil [(into [bv] av), (conj  av bv)]))))
+    :k (fn k [stack] ;[b a] -> [a]
          (let [[stack', [bv, av]] (split-vec stack -2)]
            (run stack', (remove-nil av))))
     :def (fn def-op [stack]
@@ -60,7 +58,7 @@
 
 (is (= (run [[:a] :zap]) []))
 
-(is (= (run [[:b] [:a] :dip]) [:a [:b]]));; <-
+(is (= (run [[:b] [:a] :dip]) [:a [:b]]))
 
 (is (= (run [[:b] [:a] :cons]) [[[:b] :a]]))
 
